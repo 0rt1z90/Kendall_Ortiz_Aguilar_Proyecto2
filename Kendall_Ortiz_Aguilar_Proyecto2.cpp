@@ -1,10 +1,9 @@
-#include "Window.h"
-
+#include "Windoww.h"
 
 int main() {
-   
-        Windoww imagenDisplay("Hollownest.jpeg");
-        imagenDisplay.run();
-        cout << "";
+
+    //Ventana con la imagen
+    Windoww imagenDisplay("HollowArchives/Hollownest.jpeg");
+    imagenDisplay.run();
     return 0;
 }
