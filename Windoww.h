@@ -11,9 +11,12 @@ using namespace sf;
 class Windoww {
 private:
     Texture texture;
+    Texture start;
     RenderWindow window;
     Sprite sprite;
+    Sprite startSprite;
     Music music;
+    vector<Sprite> circles; // Almacena los círculos creados, lo dejare en vectores hasta que estudie nodos
 
 
 public:
@@ -21,6 +24,7 @@ public:
     Windoww(const string& imageFilePath);
     void run();
     void processEvents();
+    void processEventsS(RenderWindow&);
     void render();
     void scaleSprite();
     void playMusic();

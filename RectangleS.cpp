@@ -6,7 +6,7 @@ RectangleS::RectangleS() {
 
 RectangleShape RectangleS::rectangle(Vector2f position) {
 
-    RectangleShape rButton(Vector2f(200, 60));  //Tamaño del botón: 200x60
+    RectangleShape rButton(Vector2f(200, 60));  //Tamaño del boton 200x60
    
    
 
