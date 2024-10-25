@@ -5,12 +5,22 @@ Circle c1;
 Event event;
 
 Windoww::Windoww(const string& imageFilePath) : window(sf::VideoMode(1200, 750), "SFML Window") {//Cargo la ventana
+    window.setFramerateLimit(60);
     texture.loadFromFile(imageFilePath);
     sprite.setTexture(texture);
-    start.loadFromFile("HollowArchives/HollowStart.png");
-    startSprite.setTexture(start);
     scaleSprite();
+    start.loadFromFile("HollowArchives/HollowMenu.jpg");
+    Vector2u textureSize = start.getSize(); // Tamaño de la imagen
+    Vector2u windowSize = window.getSize(); // Tamaño de la ventana
 
+    // Calcular la escala para ajustar la imagen al tamaño de la ventana
+    float scaleX = static_cast<float>(windowSize.x) / textureSize.x;
+    float scaleY = static_cast<float>(windowSize.y) / textureSize.y;
+
+
+    startSprite.setTexture(start);
+    startSprite.setScale(scaleX, scaleY);
+   
 }
 
 void Windoww::run() {
@@ -44,12 +54,20 @@ void Windoww::processEvents() {
             }
 
             if (mousePos.x <= 980 || (mousePos.x >= 980 && mousePos.y >= 500)) {//Saber si se encuentra encima del panel de emblemas
-            
-                Sprite newEmblem = c1.createCircle(mousePos, textureSize);
+                Sprite newEmblem;
+                newEmblem = c1.createCircle(mousePos, textureSize);
+                circles.push_back(newEmblem);
+            }
+            if (mousePos.x >= 997 && mousePos.x < 1200 &&
+                mousePos.y >= 50 && mousePos.y <= 50 + 50) {
 
-                if (newEmblem.getTexture()) {
-                    circles.push_back(newEmblem);
-                }
+               //Insercion
+            }
+
+            if (mousePos.x >= 997 && mousePos.x < 1200 &&
+                mousePos.y >= 160 && mousePos.y <= 160 + 50) {
+
+                cout << "Guardar" << endl;
             }
         }
     }
@@ -71,7 +89,7 @@ void Windoww::processEventsS(RenderWindow& window) {
         //Ventana de start
         window.clear();
         window.draw(startSprite);
-        window.draw(text.textShow("ENTER", Vector2f(580, 600)));
+        
         window.display();
     }
 }

@@ -5,17 +5,48 @@
 using namespace std;
 using namespace sf;
 
+const int emblemCount = 12;
+
 class Circle {
 private:
-	CircleShape circle;
+	int indi;
 	Texture texture;
-	Color colors;
-	Sprite currentEmblem;  //Sprite que almacena el emblema seleccionado
+
+	Texture emblemTextures[emblemCount];
+	Sprite emblems[emblemCount];
+	string emblemFilenames[12] = {
+	"HollowCharm/1HardBlow.png",
+
+	"HollowCharm/2MasterOfLunges.png",
+
+	"HollowCharm/3SharpShadow.png",
+
+	"HollowCharm/4Grimm'sChild.png",
+
+	"HollowCharm/5SongOfTheWeaver.png",
+
+	"HollowCharm/6UnbreakableHeart.png",
+
+	"HollowCharm/7MonarchSoul.png",
+
+	"HollowCharm/8HeartOfTheVoid.png",
+
+	"HollowCharm/9BlessingOfJoni.png",
+
+	"HollowCharm/10Baldur'sBreastplate.png",
+
+	"HollowCharm/11GloryOfTheStingmaster.png",
+
+	"HollowCharm/12LarvaflyElegy.png"
+	};
+
+
 	bool emblemSelected = false;  //Verificar si se ha seleccionado un emblema
 
 public:
 	Circle();
 	Sprite charm();
 	Sprite createCircle(Vector2f, Vector2u);
+	void indice(Vector2f);
 };
 
