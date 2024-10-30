@@ -7,7 +7,7 @@ Windoww::Windoww(const string& imageFilePath) : window(sf::VideoMode(1200, 750),
     sprite.setTexture(texture);
     scaleSprite();
     start.loadFromFile("HollowArchives/HollowMenu.jpg");
-    f1.procesarArchivo("HollowList/Lista_Nodos.txt");
+    f1.procesarArchivo("HollowList/List_N.txt");
     Vector2u textureSize = start.getSize(); //Tamaño de la imagen
     Vector2u windowSize = window.getSize(); //Tamaño de la ventana
 
@@ -73,7 +73,7 @@ void Windoww::processEvents() {
             if (mousePos.x >= 997 && mousePos.x < 1200 &&
                 mousePos.y >= 150 && mousePos.y <= 160 + 50) {
 
-                // "Guardar"
+                f1.save(circles.getHead(), "HollowList/List_N.txt");
 
             }
 
@@ -87,15 +87,23 @@ void Windoww::processEvents() {
 }
 
 void Windoww::processEventsS(RenderWindow& window) {
+    Event event;
+   
 
     while (window.isOpen()) {
- 
+        Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));//Para obtner poss del mouse
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed) {
                 window.close();
             }
             if (event.type == Event::KeyPressed && event.key.code == Keyboard::Enter) {
                 return;  //Salir del bucle
+            }
+            if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
+                if (mousePos.x > 541 && mousePos.x < 659 && mousePos.y>434 && mousePos.y < 453) {
+                    return;  //Salir del bucle
+                }
+            
             }
         }
 

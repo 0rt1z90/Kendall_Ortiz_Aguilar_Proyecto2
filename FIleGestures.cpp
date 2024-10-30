@@ -33,7 +33,6 @@ void FileGestures::cargar(List& list, const string& archivo) {
 }
 
 void FileGestures::procesarArchivo(const string& nombreArchivo) {
-	
 	ifstream archivo(nombreArchivo);
 	if (!archivo) {
 		cerr << "No se pudo abrir el archivo." << endl;
@@ -41,22 +40,16 @@ void FileGestures::procesarArchivo(const string& nombreArchivo) {
 		return;
 	}
 
-
-
 	float x, y;
 	Nodo* ultimo = nullptr;
-
-	//Leer coordenadas del archivo
-
 	while (archivo >> x >> y) {
 
 		Vector2f pos(x, y);
-		Sprite nuevoEmblema;
 
+		Sprite nuevoEmblema;
 		if (x > 997) {
 
-			int indice1 = c12.indice2(pos);
-			
+			indice1 = c12.indice2(pos);
 			if (!texturas[numTexturas].loadFromFile(c12.getEmblemsFiles(indice1))) {
 				cerr << "Error al cargar la textura para x > 997." << endl;
 
@@ -64,19 +57,18 @@ void FileGestures::procesarArchivo(const string& nombreArchivo) {
 		}
 		nuevoEmblema.setTexture(texturas[numTexturas]);
 		nuevoEmblema.scale(0.4f, 0.4f);
-		numTexturas++;  //Aumentar el numero de texturas
+		numTexturas++;  //Incrementar el numero de texturas utilizadas
 
 		if (x < 997) {
-
 			nuevoEmblema.setPosition(x, y);
-
+			texturas[numTexturas].loadFromFile(c12.getEmblemsFiles(indice1));
 		}
 		else {
-			continue;  //salta la creación del nodo
+			continue;  //Si x no cumple con la condicion, salta la creacion del nodo
 		}
 
 
-		//Crear un nuevo nodo con el Sprite
+		//Crear un nuevo nodo con el Sprite y añadirlo a la lista enlazada
 		Nodo* nuevoNodo = new Nodo(nuevoEmblema);
 		if (!head) {
 			head = nuevoNodo;
@@ -89,6 +81,7 @@ void FileGestures::procesarArchivo(const string& nombreArchivo) {
 	}
 
 	archivo.close();
+
 	cout << "Procesamiento del archivo completado." << endl;
 
 }

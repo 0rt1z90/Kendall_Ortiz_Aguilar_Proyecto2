@@ -15,7 +15,8 @@ private:
 	Texture* texturas;
 	Circle c12;
 	Sprite newEmblemm;
-	int numTexturas;
+	int numTexturas, indice1;
+
 public:
 	static void save(Nodo*, const string&);
 
@@ -29,6 +30,7 @@ public:
 
 	FileGestures() : numTexturas(0) {
 		texturas = new sf::Texture[100];  // Tamaño máximo de 100 texturas
+		 indice1 = 0;
 	}
 };
 
