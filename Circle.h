@@ -48,5 +48,9 @@ public:
 	Sprite charm();
 	Sprite createCircle(Vector2f, Vector2u);
 	void indice(Vector2f);
+	Sprite createCircleNeww(Vector2f position);
+	int indice2(Vector2f);
+	string getEmblemsFiles(int);
+	Sprite getEmblems(int);
 };
 

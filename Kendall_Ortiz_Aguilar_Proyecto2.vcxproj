@@ -131,13 +131,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="FIleGestures.cpp" />
     <ClCompile Include="Kendall_Ortiz_Aguilar_Proyecto2.cpp" />
+    <ClCompile Include="Nodo.cpp" />
     <ClCompile Include="RectangleS.cpp" />
     <ClCompile Include="Textt.cpp" />
     <ClCompile Include="Windoww.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Circle.h" />
+    <ClInclude Include="FIleGestures.h" />
+    <ClInclude Include="Nodo.h" />
     <ClInclude Include="RectangleS.h" />
     <ClInclude Include="Textt.h" />
     <ClInclude Include="Windoww.h" />

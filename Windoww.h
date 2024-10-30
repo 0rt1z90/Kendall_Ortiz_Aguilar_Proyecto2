@@ -5,18 +5,26 @@
 #include "RectangleS.h"
 #include "Textt.h"
 #include "Circle.h"
+#include "FileGestures.h"
+#include "Nodo.h"
+
 using namespace std;
 using namespace sf;
 
 class Windoww {
 private:
-    Texture texture;
-    Texture start;
+    bool mostrarEmblemas = false;
+    Texture texture, start;
     RenderWindow window;
-    Sprite sprite;
-    Sprite startSprite;
+    Sprite sprite, startSprite, newEmblem;
     Music music;
-    vector<Sprite> circles; // Almacena los círculos creados, lo dejare en vectores hasta que estudie nodos
+    List circles;
+    RectangleS button;
+    Textt text;
+    Circle c1;
+    Event event;
+    FileGestures f1;
+  
 
 
 public:

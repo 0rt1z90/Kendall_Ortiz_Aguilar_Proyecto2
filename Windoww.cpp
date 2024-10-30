@@ -1,8 +1,5 @@
 #include "Windoww.h"
-RectangleS button;
-Textt text;
-Circle c1;
-Event event;
+
 
 Windoww::Windoww(const string& imageFilePath) : window(sf::VideoMode(1200, 750), "SFML Window") {//Cargo la ventana
     window.setFramerateLimit(60);
@@ -10,10 +7,11 @@ Windoww::Windoww(const string& imageFilePath) : window(sf::VideoMode(1200, 750),
     sprite.setTexture(texture);
     scaleSprite();
     start.loadFromFile("HollowArchives/HollowMenu.jpg");
-    Vector2u textureSize = start.getSize(); // Tamaño de la imagen
-    Vector2u windowSize = window.getSize(); // Tamaño de la ventana
+    f1.procesarArchivo("HollowList/Lista_Nodos.txt");
+    Vector2u textureSize = start.getSize(); //Tamaño de la imagen
+    Vector2u windowSize = window.getSize(); //Tamaño de la ventana
 
-    // Calcular la escala para ajustar la imagen al tamaño de la ventana
+    //Calcular la escala para ajustar la imagen al tamaño de la ventana
     float scaleX = static_cast<float>(windowSize.x) / textureSize.x;
     float scaleY = static_cast<float>(windowSize.y) / textureSize.y;
 
@@ -53,21 +51,36 @@ void Windoww::processEvents() {
 
             }
 
-            if (mousePos.x <= 980 || (mousePos.x >= 980 && mousePos.y >= 500)) {//Saber si se encuentra encima del panel de emblemas
-                Sprite newEmblem;
+            if (mousePos.x <= 980 || (mousePos.x >= 980 && mousePos.y >= 500)) {//Poss del mouse para que solo pueda hacer puntos en el mapa
+
                 newEmblem = c1.createCircle(mousePos, textureSize);
-                circles.push_back(newEmblem);
+              
+
+                circles.add(mousePos, mousePos, newEmblem);
+                newEmblem.setPosition(mousePos.x, mousePos.y);  //Posicionar en el lugar donde se hizo clic
+                if (mousePos.x < 997) {
+
+                    
+                }
             }
+
             if (mousePos.x >= 997 && mousePos.x < 1200 &&
                 mousePos.y >= 50 && mousePos.y <= 50 + 50) {
 
-               //Insercion
+                mostrarEmblemas = true;
             }
 
             if (mousePos.x >= 997 && mousePos.x < 1200 &&
-                mousePos.y >= 160 && mousePos.y <= 160 + 50) {
+                mousePos.y >= 150 && mousePos.y <= 160 + 50) {
 
-                cout << "Guardar" << endl;
+                // "Guardar"
+
+            }
+
+            if (mousePos.x >= 997 && mousePos.x < 1200 &&
+                mousePos.y >= 250 && mousePos.y <= 260 + 50) {
+
+                // "Editar" 
             }
         }
     }
@@ -109,15 +122,19 @@ void Windoww::render() {
     window.draw(text.textShow("EDITAR", Vector2f(1040, 260)));
     window.draw(button.rectangle(Vector2f(997, 454)));
     window.draw(text.textShow("SALIR", Vector2f(1060, 466)));
-    window.draw(c1.charm());
 
-    for (auto& emblem : circles) {
-        window.draw(emblem);  //Dibujar cada emblema (sprite)
+    if (mostrarEmblemas) {
+        f1.dibujarEmblemas(window);
+    }
+    window.draw(c1.charm());//Imagen
+
+    Nodo* actual = circles.getHead();
+    while (actual != nullptr) {
+        window.draw(actual->image);
+        actual = actual->sigt;
     }
 
-
     window.display();
-
 }
 
 void Windoww::scaleSprite() {
@@ -130,13 +147,13 @@ void Windoww::scaleSprite() {
 
     //Start
     float scaleXS = static_cast<float>(startSprite.getScale().x * 0.63) / textureSizeS.x; //63% del ancho de la ventana
-    float scaleYS = static_cast<float>(startSprite.getScale().y * 0.80) / textureSizeS.y; // odo el alto de la ventana
+    float scaleYS = static_cast<float>(startSprite.getScale().y * 0.80) / textureSizeS.y; //Todo el alto de la ventana
 
     //Aplicar la escala al sprite
     sprite.setScale(scaleX, scaleY);//Mapa
     startSprite.setScale(scaleXS, scaleYS);//Start
 
-    // Coordenada (0, 0) para que quede a la izquierda
+    // Coordenada (0,0) para que quede a la izquierda
     sprite.setPosition(0,0);  //Mapa
     startSprite.setPosition(0,0);//Start
 }
