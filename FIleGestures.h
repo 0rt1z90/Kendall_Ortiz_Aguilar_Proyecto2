@@ -4,6 +4,7 @@
 #include <fstream>
 #include <SFML/Graphics.hpp>
 #include "Nodo.h"
+#include "Inter.h"
 
 using namespace sf;
 using namespace std;
@@ -16,11 +17,11 @@ private:
 	Circle c12;
 	Sprite newEmblemm;
 	int numTexturas, indice1;
+	Font font;
+
 
 public:
 	static void save(Nodo*, const string&);
-
-	static void cargar(List&, const string&);
 
 	void procesarArchivo(const string&);
 
@@ -29,8 +30,7 @@ public:
 	void dibujarEmblemas(RenderWindow&);
 
 	FileGestures() : numTexturas(0) {
-		texturas = new sf::Texture[100];  // Tamaño máximo de 100 texturas
-		 indice1 = 0;
+		texturas = new Texture[100];  //Tamaño maximo de 100 texturas
+		indice1 = 0;
 	}
 };
-

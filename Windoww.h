@@ -7,13 +7,14 @@
 #include "Circle.h"
 #include "FileGestures.h"
 #include "Nodo.h"
+#include "Inter.h"
 
 using namespace std;
 using namespace sf;
 
 class Windoww {
 private:
-    bool mostrarEmblemas = false;
+    bool mostrarEmblemas = false, inGame = false, normal1 = false, normal2 = false, normal3 = false;
     Texture texture, start;
     RenderWindow window;
     Sprite sprite, startSprite, newEmblem;
@@ -24,8 +25,9 @@ private:
     Circle c1;
     Event event;
     FileGestures f1;
-  
-
+    Font font;
+    Text displayedText;
+    string inputText, archiveFile;
 
 public:
 
@@ -36,4 +38,5 @@ public:
     void render();
     void scaleSprite();
     void playMusic();
+
 };

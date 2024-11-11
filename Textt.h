@@ -7,11 +7,12 @@ using namespace sf;
 
 class Textt {
 private:
-	Font font;
-
+	Font font, fontText;
+	Text newText;
 public:
 
 	Textt();
 	Text textShow(string, Vector2f);
+	Text textNodo(string, Vector2f);
 
 };

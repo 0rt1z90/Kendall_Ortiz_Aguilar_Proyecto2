@@ -14,9 +14,9 @@ Circle::Circle() {
 }
 
 Sprite Circle::charm() {
-	
+
 	Sprite sprite(texture);
-	
+
 	sprite.setScale(0.66f, 0.6f);//Escala de la imagen
 	sprite.setPosition(997, 520);
 
@@ -34,10 +34,9 @@ Sprite Circle::createCircle(Vector2f position, Vector2u textureSize) {
 	if (position.x >= 997 && position.x <= 997 + (textureSize.x * 0.66f) &&
 		position.y >= 520 && position.y <= 520 + (textureSize.y * 0.6f)) {
 
-		 //Marcar que se ha seleccionado un emblema
+		//Marcar que se ha seleccionado un emblema
 		emblems[indi].setTexture(texture);
 		emblemSelected = true;
-		int emblemSize = 130;
 
 		//Retornar un sprite vacio si solo estás seleccionando un emblema
 		return Sprite();
@@ -48,7 +47,7 @@ Sprite Circle::createCircle(Vector2f position, Vector2u textureSize) {
 
 		Sprite emblemToDraw = emblems[indi];  //Crear una copia del sprite
 
-		emblemToDraw.setPosition(position);   //Posicionar el emblema en el clic
+		emblemToDraw.setPosition(position.x - 30, position.y - 40);   //Posicionar el emblema en el clic
 		emblemToDraw.setScale(0.4f, 0.4f);
 
 		return emblemToDraw;
@@ -57,19 +56,6 @@ Sprite Circle::createCircle(Vector2f position, Vector2u textureSize) {
 
 	return Sprite(); //Retornar un sprite vacio si no se ha seleccionado un emblema
 
-}
-
-Sprite Circle::createCircleNeww(Vector2f position) {
-
-	indice(position);
-
-	Sprite emblemToDraw = emblems[indi];  //Crear una copia del sprite
-
-	emblemToDraw.setPosition(position);   //Posicionar el emblema en el clic
-	emblemToDraw.setScale(0.4f, 0.4f);
-
-	
-	return emblemToDraw;
 }
 
 void Circle::indice(Vector2f index)
