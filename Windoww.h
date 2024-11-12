@@ -14,7 +14,7 @@ using namespace sf;
 
 class Windoww {
 private:
-    bool mostrarEmblemas = false, inGame = false, normal1 = false, normal2 = false, normal3 = false;
+    bool mostrarEmblemas = false, delet = false, inGame = false, normal1 = false, normal2 = false, altMapMode = false;  //Nueva variable para el modo alternativo de mapa
     Texture texture, start;
     RenderWindow window;
     Sprite sprite, startSprite, newEmblem;
@@ -26,8 +26,8 @@ private:
     Event event;
     FileGestures f1;
     Font font;
-    Text displayedText;
-    string inputText, archiveFile;
+    Text displayedText, displayedTex;
+    string inputText, archiveFile, archiceTex;
 
 public:
 

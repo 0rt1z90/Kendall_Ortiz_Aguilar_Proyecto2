@@ -3,7 +3,6 @@
 #include "Circle.h"
 #include <fstream>
 #include <SFML/Graphics.hpp>
-#include "Nodo.h"
 #include "Inter.h"
 
 using namespace sf;
@@ -11,6 +10,7 @@ using namespace std;
 
 class FileGestures {
 private:
+
 	Nodo* head = nullptr;
 	Texture tex;
 	Texture* texturas;
@@ -21,9 +21,12 @@ private:
 
 
 public:
+
 	static void save(Nodo*, const string&);
 
-	void procesarArchivo(const string&);
+	bool procesarArchivo(const string&, List&);
+
+	//void procesarArchivo(const string&);
 
 	~FileGestures();
 

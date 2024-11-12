@@ -38,7 +38,7 @@ Sprite Circle::createCircle(Vector2f position, Vector2u textureSize) {
 		emblems[indi].setTexture(texture);
 		emblemSelected = true;
 
-		//Retornar un sprite vacio si solo estás seleccionando un emblema
+		//Retornar un sprite vacio si solo estas seleccionando un emblema
 		return Sprite();
 	}
 	else if (emblemSelected) {

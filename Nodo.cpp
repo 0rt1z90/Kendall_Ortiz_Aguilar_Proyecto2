@@ -1,89 +1,117 @@
 #include "Nodo.h"
 
 Nodo::Nodo(Vector2f x, Vector2f y, Sprite image, Text text, string cham) {
-	this->possX = x;
-	this->possY = y;
-	this->spri = image;
-	this->sigt = nullptr;
-	this->ant = nullptr;
-	this->text = text;
-	this->charm = cham;
+    this->possX = x;
+    this->possY = y;
+    this->spri = image;
+    this->sigt = nullptr;
+    this->ant = nullptr;
+    this->text = text;
+    this->charm = cham;
 
 }
 
 Nodo::Nodo(Sprite image, Text text, Texture* cham)
 {
-	this->spri = image;
-	this->sigt = nullptr;
-	this->ant = nullptr;
-	this->text = text;
-	this->t1 = cham;
+    this->spri = image;
+    this->sigt = nullptr;
+    this->ant = nullptr;
+    this->text = text;
+    this->t1 = cham;
 
 }
 
 Nodo::Nodo(Vector2f x, Vector2f y, Sprite image) {
 
-	this->possX = x;
-	this->possY = y;
-	this->spri = image;
-	this->sigt = nullptr;
-	this->ant = nullptr;
+    this->possX = x;
+    this->possY = y;
+    this->spri = image;
+    this->sigt = nullptr;
+    this->ant = nullptr;
 
 }
 
 void List::add(Vector2f x, Vector2f y, const Sprite& image, const Text& txt, const string& cham) {
-	Nodo* nuevo = new Nodo(x, y, image, txt, cham);
+    Nodo* nuevo = new Nodo(x, y, image, txt, cham);
 
-	if (head == nullptr) {
-		head = nuevo;
-		end = nuevo;
-	}
-	else {
-		Nodo* actual = head;
-		while (actual->sigt != nullptr) {
-			actual = actual->sigt;
-		}
-		actual->sigt = nuevo;
-		nuevo->ant = actual;
-		nuevo = actual;
-	}
+    if (head == nullptr) {
+        head = nuevo;
+        end = nuevo;
+    }
+    else {
+        Nodo* actual = head;
+        while (actual->sigt != nullptr) {
+            actual = actual->sigt;
+        }
+        actual->sigt = nuevo;
+        nuevo->ant = actual;
+        end = actual;
+    }
 }
 
 void List::deletear(RenderWindow& ventana, const Vector2f& mousePos) {
-	Nodo* actual = head;
+    Nodo* actual = head;
 
-	
-	while (actual) {
-		//Verificar si el mouse esta dentro de los limites del sprite
-		if (actual->spri.getGlobalBounds().contains(static_cast<Vector2f>(mousePos))) {
-			Nodo* nodoAEliminar = actual;
+    //Lista vacia
+    if (!head) {
+        cerr << "La lista está vacía, no se puede eliminar." << endl;
+        return;
+    }
 
-			//Si el nodo a eliminar es el primero
-			if (nodoAEliminar == head) {
-				head = nodoAEliminar->sigt;
-				if (head) head->ant = nullptr;  
-			}
-			//Si el nodo a eliminar es el ultimo
-			else if (nodoAEliminar == end) {
-				end = nodoAEliminar->ant;
-				if (end) end->sigt = nullptr;  
-			}
-			//Si el nodo a eliminar esta en el medio
-			else {
-				nodoAEliminar->ant->sigt = nodoAEliminar->sigt;
-				nodoAEliminar->sigt->ant = nodoAEliminar->ant;
-			}
 
-			//Eliminar el nodo
-			delete nodoAEliminar;
-			return;  //Salir cuando se elimina nodo
-		}
+    while (actual) {
+        //Limites del sprite
+        if (actual->spri.getGlobalBounds().contains(mousePos)) {
 
-		actual = actual->sigt;  
-	}
 
+            //Si a borrar es primero
+            if (actual == head) {
+                head = actual->sigt;
+                if (head) {
+                    head->ant = nullptr;
+                }
+                if (!head) {
+                    end = nullptr; //La lista queda vacia
+                }
+            }
+            //Si a borrar es ultimo
+            else if (actual == end) {
+                end = actual->ant;
+                if (end) {
+                    end->sigt = nullptr;
+                }
+                else {
+                    head = nullptr; //La lista esta vacia
+                }
+            }
+            //Si el nodo a eliminar en el centro
+            else {
+                if (actual->ant) {
+                    actual->ant->sigt = actual->sigt;
+                }
+                if (actual->sigt) {
+                    actual->sigt->ant = actual->ant;
+                }
+            }
+
+
+            delete actual;  //Liberamos la memoria
+
+            return;  //Salir de la funcion
+        }
+
+        actual = actual->sigt;  // Avanzar al siguiente nodo
+    }
 }
 
 Nodo* List::getHead() {
-	return head;
+    return head;
+}
+
+Nodo* List::getEnd() {
+    return end;
+}
+
+void List::setEnd(Nodo* n) {
+    end = n;
 }

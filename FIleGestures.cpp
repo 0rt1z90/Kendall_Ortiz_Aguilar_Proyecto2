@@ -1,8 +1,7 @@
 #include "FIleGestures.h"
 
-
 void FileGestures::save(Nodo* nodo, const string& archive) {
-    ofstream arch(archive);  //Abrir en modo 
+    ofstream arch(archive);  
     if (!arch) {
         cout << "no" << endl;
     }
@@ -22,73 +21,93 @@ void FileGestures::save(Nodo* nodo, const string& archive) {
     cout << "Lista guardada en " << archive << endl;
 }
 
-void FileGestures::procesarArchivo(const string& nombreArchivo) {
+bool FileGestures::procesarArchivo(const string& nombreArchivo, List& circles) {
     font.loadFromFile("HollowArchives/HollowFont5.ttf");
+
     ifstream archivo(nombreArchivo);
     if (!archivo) {
-        cerr << "No se pudo abrir el archivo." << endl;
-        delete[] texturas;
-        return;
+        cerr << "No se pudo abrir el archivo: " << nombreArchivo << endl;
+        return false;  //Retornar false si no se puede abrir el archivo
     }
 
     float x, y;
     string texturaArchivo, nombreEmblema;
-    Nodo* ultimo = nullptr;
+    Nodo* ultimoArchivo = nullptr;  //Ultimo nodo cargado del archivo
+    Nodo* nodoUltimoMapa = circles.getEnd();  //Ultimo nodo del mapa antes de cargar el archivo
 
-    while (archivo >> x >> y) { //Lee x y y 
-        archivo >> texturaArchivo;  //Lee la ruta del archivo de textura
-        archivo >> nombreEmblema;   //Lee el nombre del emblema
+    while (archivo >> x >> y) {  //Lee x y y
+        archivo >> texturaArchivo;   //Lee la  textura
+        archivo >> nombreEmblema;    //Lee el nombre
         Vector2f pos(x, y);
 
-        // Cargar la textura para el sprite
-        Texture* textura = new Texture(); // Crear una textura independiente
+        //Carga la textura
+        Texture* textura = new Texture();
         if (!textura->loadFromFile(texturaArchivo)) {
             cerr << "Error al cargar la textura: " << texturaArchivo << endl;
             delete textura;
-            continue;  //falla la carga, salta este nodo
+            continue;  //Si la textura no se puede cargar, continuar con el siguiente nodo
         }
 
+        //Crear el sprite y el texto para el nuevo nodo
         Sprite nuevoEmblema;
-        nuevoEmblema.setTexture(*textura);  //Asignar la textura cargada al sprite
+        nuevoEmblema.setTexture(*textura);
         nuevoEmblema.setPosition(x - 30, y - 40);
         nuevoEmblema.scale(0.4f, 0.4f);
 
-        //Crear un objeto Text
         Text nuevoTexto;
         nuevoTexto.setFont(font);
         nuevoTexto.setString(nombreEmblema);
         nuevoTexto.setPosition(x - 25, y - 65);
 
-        //Creacion de nuevo nodo
+        //Crear el nodo
         Nodo* nuevoNodo = new Nodo(nuevoEmblema, nuevoTexto, textura);
-        if (!head) {
-            head = nuevoNodo;
-            ultimo = head;
+        nuevoNodo->possX.x = x;
+        nuevoNodo->possY.y = y;
+        nuevoNodo->charm = texturaArchivo;
+
+       //Conectar los nodos
+        if (ultimoArchivo) {
+            ultimoArchivo->sigt = nuevoNodo;
+            nuevoNodo->ant = ultimoArchivo;
         }
         else {
-            ultimo->sigt = nuevoNodo;
+           
+            if (nodoUltimoMapa) {
+                nodoUltimoMapa->sigt = nuevoNodo;
+                nuevoNodo->ant = nodoUltimoMapa;
+            }
         }
-        ultimo = nuevoNodo;
+
+        ultimoArchivo = nuevoNodo;  //Actualizar el ultimo nodo cargado
+    }
+
+    //Nuevo end de circles
+    if (ultimoArchivo) {
+        circles.setEnd(ultimoArchivo);
     }
 
     archivo.close();
-    cout << "Procesamiento del archivo completado." << endl;
+    cout << "Procesamiento del archivo completado y nodos conectados al mapa." << endl;
+    return true;  //Si el archivo se proceso correctamente
 }
 
 void FileGestures::dibujarEmblemas(RenderWindow& ventana) {
 
     Nodo* actual = head;
 
-    while (actual) {
+    while (actual != nullptr) {
         //Dibuja el sprite
         ventana.draw(actual->spri);
+
+        InterpolacionCubica::dibujarCurva(ventana, head);
+
         //Dibuja el texto
         ventana.draw(actual->text);
 
 
-
         actual = actual->sigt; //Avanza al siguiente nodo
     }
+
 }
 
 FileGestures::~FileGestures() {
