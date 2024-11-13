@@ -1,10 +1,10 @@
 #include "RectangleS.h"
 
 RectangleS::RectangleS() {
-    //Cargar los botones
     button.loadFromFile("HollowArchives/HollowStyle.jpg");
     buttonText.loadFromFile("HollowArchives/HollowWallp.jpg");
     buttonMenu.loadFromFile("HollowArchives/HollowStyle7.jpg");
+    buttonCam.loadFromFile("HollowExtras/HollowWallp2.jpg");
     button1.loadFromFile("HollowArchives/HollowStyle2.jpg");
     button2.loadFromFile("HollowArchives/HollowStyle4.jpg");
     button3.loadFromFile("HollowArchives/HollowStyle3.jpg");
@@ -68,4 +68,15 @@ RectangleShape RectangleS::rectangleMenu(Vector2f position) {
 
     rButton.setPosition(position);  
     return rButton;
+}
+
+RectangleShape RectangleS::rectangleCam(Vector2f position) {
+
+    RectangleShape rButton(Vector2f(200, 80)); 
+    
+    rButton.setTexture(&buttonCam);
+
+    rButton.setPosition(position); 
+    return rButton;
+
 }

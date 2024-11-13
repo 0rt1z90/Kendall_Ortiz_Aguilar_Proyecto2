@@ -45,7 +45,7 @@ void List::add(Vector2f x, Vector2f y, const Sprite& image, const Text& txt, con
         }
         actual->sigt = nuevo;
         nuevo->ant = actual;
-        end = actual;
+        end = nuevo;
     }
 }
 
@@ -54,7 +54,7 @@ void List::deletear(RenderWindow& ventana, const Vector2f& mousePos) {
 
     //Lista vacia
     if (!head) {
-        cerr << "La lista está vacía, no se puede eliminar." << endl;
+        cerr << "La lista esta vacia, no se puede eliminar." << endl;
         return;
     }
 

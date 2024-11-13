@@ -14,10 +14,10 @@ using namespace sf;
 
 class Windoww {
 private:
-    bool mostrarEmblemas = false, delet = false, inGame = false, normal1 = false, normal2 = false, altMapMode = false;  //Nueva variable para el modo alternativo de mapa
-    Texture texture, start;
+    bool mostrarEmblemas = false, delet = false, inGame = false, normal1 = false, normal2 = false, altMapMode = false, newAltMapMode = false, newMap = false;//Variables para las imagenes
+    Texture texture, start, wallp, achievement;
     RenderWindow window;
-    Sprite sprite, startSprite, newEmblem;
+    Sprite sprite, startSprite, newEmblem, newWallp, achievementSprite;
     Music music;
     List circles;
     RectangleS button;
@@ -26,8 +26,9 @@ private:
     Event event;
     FileGestures f1;
     Font font;
-    Text displayedText, displayedTex;
-    string inputText, archiveFile, archiceTex;
+    Text displayedText, editText;
+    string inputText, archiveFile, archiveText;
+
 
 public:
 
@@ -38,5 +39,7 @@ public:
     void render();
     void scaleSprite();
     void playMusic();
+    void scalarImagen();
+    void imagen();
 
 };
