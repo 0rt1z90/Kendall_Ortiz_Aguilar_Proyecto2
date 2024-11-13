@@ -284,6 +284,7 @@ void Windoww::processEventsS(RenderWindow& window) {
 
             }
         }
+
         //Dibujar la pantalla de inicio
         Text t2;
         t2.setFont(font);

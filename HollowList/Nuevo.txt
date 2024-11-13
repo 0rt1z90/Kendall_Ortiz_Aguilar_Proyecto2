@@ -1,16 +1,8 @@
-149.341
-461.074
+708.931
+291.946
 HollowCharm/4Grimm'sChild.png
-as
-302.196
-261.745
-HollowCharm/3SharpShadow.png
-ff
-791
-549
-HollowCharm/1HardBlow.png
-d
-771
-263
-HollowCharm/1HardBlow.png
-d
+Lugar 1
+472.621
+593.96
+HollowCharm/10Baldur'sBreastplate.png
+Lugar4
